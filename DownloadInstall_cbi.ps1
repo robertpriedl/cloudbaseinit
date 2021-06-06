@@ -9,5 +9,5 @@ copy-item -path "$env:temp\cloudbase-init-unattend.conf" -destination "$env:prog
 copy-item -path "$env:temp\unattend.xml" -destination "$env:programfiles\Cloudbase Solutions\Cloudbase-Init\conf\unattend.xml"
 set-location "$env:programfiles\Cloudbase Solutions\Cloudbase-Init\conf\"
 
-"c:\Windows\System32\Sysprep\Sysprep.exe" /generalize /oobe /shutdown /unattend:Unattend.xml
+Invoke-Expression -command "c:\Windows\System32\Sysprep\Sysprep.exe /generalize /oobe /shutdown /unattend:Unattend.xml"
 # msiexec /I "$env:temp\CloudbaseInitSetup_Sable_x64.msi"
