@@ -1,4 +1,4 @@
-Invoke-WebRequest -Uri "https://cloudbase.it/downloads/CloudbaseInitSetup_x64.msi" -Outfile "$env:temp\CloudbaseInitSetup_Stable_x64.msi"
+Invoke-RestMethod -Uri "https://cloudbase.it/downloads/CloudbaseInitSetup_x64.msi" -Outfile "$env:temp\CloudbaseInitSetup_Stable_x64.msi"
 Invoke-WebRequest -Uri "https://github.com/robertpriedl/cloudbaseinit/blob/main/cloudbase-init-unattend.conf" -Outfile "$env:temp\cloudbase-init-unattend.conf"
 Invoke-WebRequest -Uri "https://github.com/robertpriedl/cloudbaseinit/blob/main/cloudbase-init.conf" -Outfile "$env:temp\cloudbase-init.conf"
 Invoke-WebRequest -Uri "https://github.com/robertpriedl/cloudbaseinit/blob/main/Unattend.xml" -Outfile "$env:temp\Unattend.xml"
