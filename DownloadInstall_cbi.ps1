@@ -55,6 +55,7 @@ msiexec /i "$env:temp\CloudbaseInitSetup_Stable_x64.msi" /qn /l*v "C:\Windows\Te
 # wait for ending msiexec
 start-sleep -Seconds 2
 While ((get-process -Name msiexec).count -gt 1){
+    Write-Output "Waiting for completing Cloudbase-init setup..."
     Start-Sleep -Seconds 5
 }
 # copy temporary downloaded config files
