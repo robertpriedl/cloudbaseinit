@@ -62,6 +62,22 @@ While ((get-process -Name msiexec).count -gt 1){
 copy-item -path "$env:temp\cloudbase-init.conf" -destination "$env:programfiles\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init.conf"
 copy-item -path "$env:temp\cloudbase-init-unattend.conf" -destination "$env:programfiles\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init-unattend.conf"
 copy-item -path "$env:temp\unattend.xml" -destination "$env:programfiles\Cloudbase Solutions\Cloudbase-Init\conf\unattend.xml"
+
+# Set Network to DHCP
+$IPType = "IPv4"
+$adapter = Get-NetAdapter | ? {$_.Status -eq "up"}
+$interface = $adapter | Get-NetIPInterface -AddressFamily $IPType
+If ($interface.Dhcp -eq "Disabled") {
+ # Remove existing gateway
+ If (($interface | Get-NetIPConfiguration).Ipv4DefaultGateway) {
+ $interface | Remove-NetRoute -Confirm:$false
+ }
+ # Enable DHCP
+ $interface | Set-NetIPInterface -DHCP Enabled
+ # Configure the DNS Servers automatically
+ $interface | Set-DnsClientServerAddress -ResetServerAddresses
+}
+
 # switch to cloudbase folder
 set-location "$env:programfiles\Cloudbase Solutions\Cloudbase-Init\conf\"
 # execute sysprep
